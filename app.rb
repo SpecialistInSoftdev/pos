@@ -48,7 +48,28 @@ post('/products/new') do
   name = params.fetch('name')
   quantity = params.fetch('quantity').to_i
   price = params.fetch('price').to_f
-  product = Product.new({:description => name, :quantity => quantity, :price => price})
+  product = Product.new({:description => name, :quantity => quantity, :price => price, :edit => false})
   product.save()
+  redirect('/products')
+end
+
+patch('/products/:id/edit_false') do
+  @product = Product.find(params.fetch("id").to_i())
+  name = params.fetch('name')
+  quantity = params.fetch('quantity').to_i
+  price = params.fetch('price').to_f
+  @product.update({:description => name, :quantity => quantity, :price => price, :edit => false})
+  redirect('/products')
+end
+
+patch('/products/:id/edit_true') do
+  @product = Product.find(params.fetch("id").to_i())
+  @product.update({:edit => true})
+  redirect('/products')
+end
+
+delete('/products/:id/delete') do
+  @product = Product.find(params.fetch("id").to_i())
+  @product.destroy()
   redirect('/products')
 end

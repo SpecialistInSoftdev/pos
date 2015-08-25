@@ -22,17 +22,19 @@
         <th>Quantity</th>
         <th>Price</th>
         <th>Edit</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
       <% @products.each() do |product| %>
         <% if product.edit == true %>
           <tr>
-            <form action="/products/<% product.id() %>/edit" method="post">
+            <form action="/products/<%= product.id() %>/edit_false" method="post">
               <input type="hidden" name="_method" value="patch">
-              <td><input type="text" name="name" id="name" placeholder="<%= product.description() %>"></td>
-              <td><input type="text" name="quantity" id="quantity" placeholder="<%= product.quantity() %>"></td>
-              <td><input type="text" name="price" id="price" placeholder="<%= product.price() %>"></td>
+              <td><input type="text" name="name" id="name" value="<%= product.description() %>"></td>
+              <td><input type="text" name="quantity" id="quantity" value="<%= product.quantity() %>"></td>
+              <td><input type="text" name="price" id="price" value="<%= product.price() %>"></td>
+              <td><button type="submit" class="btn">Submit Changes</button></td>
             </form>
           <tr>
         <% else %>
@@ -40,6 +42,18 @@
             <td><%= product.description() %></td>
             <td><%= product.quantity() %></td>
             <td><%= product.price() %></td>
+            <td>
+              <form action="/products/<%= product.id() %>/edit_true" method="post">
+                <input type="hidden" name="_method" value="patch">
+                <button type="submit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+              </form>
+            </td>
+            <td>
+              <form action="/products/<%= product.id() %>/delete" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+              </form>
+            </td>
           </tr>
         <% end %>
       <% end %>
