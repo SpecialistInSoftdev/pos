@@ -17,10 +17,10 @@
 
 <h3><%= @customer.name() %>'s Cart</h3>
 
-  <% if @carts.any?() %>
+  <% if @customer.carts.any?() %>
     <ul>
-      <% @carts.each() do |cart| %>
-        <li><a href="/products/<%= cart.fetch(:product_id) %>"><%= Product.find(cart.fetch(:product_id)).description() %>: <%= Product.find(cart.fetch(:product_id)).price() %></a></li>
+      <%  @customer.carts.each() do |cart| %>
+        <li><%= Product.find(cart.product_id).description() %>: $<%= Product.find(cart.product_id).price() %></li>
       <% end %>
     </ul>
   <% else %>
@@ -29,4 +29,24 @@
     </p>
   <% end%>
 
-<button class="btn"><a href="/products">Browse Products</a></button>
+<h4>Available Products</h4>
+<ul>
+  <% @products.each do |product| %>
+    <li>
+      <% @customer.carts.each do |cart| %>
+        <% if cart.check_for_product(product.id()) %>
+        #
+        <% end %>
+      <% end %>
+      <% else %>
+        <form action="/customers/<%= @customer.id() %>/carts/new" method="post">
+          <input type="hidden" name="product_id" value="<%= product.id() %>">
+          <button type="submit"><%= product.description() %></button>
+        </form>
+      <% end %>
+
+    </li>
+  <% end %>
+</ul>
+
+<button class="btn"><a href="/">Back</a></button>

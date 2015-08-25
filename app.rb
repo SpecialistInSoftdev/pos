@@ -13,6 +13,8 @@ get("/") do
   erb(:index)
 end
 
+#################### CUSTOMERS ##########################
+
 post('/customers/new') do
   name = params.fetch('name')
   @customer = Customer.new({:name => name})
@@ -22,7 +24,7 @@ end
 
 get('/customers/:id') do
   @customer = Customer.find(params.fetch("id").to_i())
-  @carts = @customer.carts()
+  @products = Product.all().available()
   erb(:customer_info)
 end
 
@@ -38,6 +40,20 @@ delete('/customers/:id/delete') do
   @customer.destroy()
   redirect('/')
 end
+
+post('/customers/:id/carts/new') do
+  @customer = Customer.find(params.fetch('id').to_i())
+  product_id = params.fetch('product_id').to_i()
+  cart = Cart.new({:product_id => product_id, :customer_id => params.fetch('id').to_i()})
+  cart.save()
+  product = Product.find(product_id)
+  new_quantity = product.quantity - 1
+  product.update({:quantity => new_quantity})
+  redirect('/customers/' + @customer.id().to_s())
+end
+
+
+#################### PRODUCTS ##########################
 
 get('/products') do
   @products = Product.all()
