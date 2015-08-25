@@ -6,5 +6,7 @@ class CreatePurchases < ActiveRecord::Migration
       t.column(:total, :float)
       t.timestamps()
     end
+
+
   end
 end

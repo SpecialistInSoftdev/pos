@@ -2,7 +2,9 @@ require('rspec')
 require('pg')
 require('sinatra/activerecord')
 require('product')
-require('purchase')
+require('order')
+require('customer')
+require('cart')
 
 RSpec.configure do |config|
   config.after(:each) do
@@ -10,8 +12,16 @@ RSpec.configure do |config|
       product.destroy()
     end
 
-    Purchase.all().each() do |purchase|
+    Order.all().each() do |purchase|
       purchase.destroy()
+    end
+
+    Customer.all().each() do |customer|
+      customer.destroy()
+    end
+
+    Cart.all().each() do |cart|
+      cart.destroy()
     end
   end
 end

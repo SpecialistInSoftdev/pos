@@ -1,0 +1,32 @@
+<h2>Customer: <%= @customer.name() %></h2>
+
+<h3>Update Customer</h3>
+  <form action="/customers/<%= @customer.id() %>/edit" method="post">
+    <input type="hidden" name="_method" value="patch">
+
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name">
+
+    <button type="submit">Update</button>
+  </form>
+
+  <form action="/customers/<%= @customer.id() %>/delete" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Delete Customer</button>
+  </form>
+
+<h3><%= @customer.name() %>'s Cart</h3>
+
+  <% if @carts.any?() %>
+    <ul>
+      <% @carts.each() do |cart| %>
+        <li><a href="/products/<%= cart.fetch(:product_id) %>"><%= Product.find(cart.fetch(:product_id)).description() %>: <%= Product.find(cart.fetch(:product_id)).price() %></a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>
+      <%= @customer.name() %>'s cart is empty.
+    </p>
+  <% end%>
+
+<button class="btn"><a href="/products">Browse Products</a></button>

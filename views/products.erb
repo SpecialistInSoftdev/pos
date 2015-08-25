@@ -1,0 +1,47 @@
+<h2>Inventory</h2>
+
+<h4>Add Product</h4>
+<form action="/products/new" method="post">
+  <label for="name">Name</label>
+  <input type="text" name="name" id="name">
+
+  <label for="quantity">Quantity</label>
+  <input type="text" name="quantity" id="quantity">
+
+  <label for="price">Price</label>
+  <input type="text" name="price" id="price">
+
+  <button class="btn" type="submit">Add Product</button>
+</form>
+
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each() do |product| %>
+        <% if product.edit == true %>
+          <tr>
+            <form action="/products/<% product.id() %>/edit" method="post">
+              <input type="hidden" name="_method" value="patch">
+              <td><input type="text" name="name" id="name" placeholder="<%= product.description() %>"></td>
+              <td><input type="text" name="quantity" id="quantity" placeholder="<%= product.quantity() %>"></td>
+              <td><input type="text" name="price" id="price" placeholder="<%= product.price() %>"></td>
+            </form>
+          <tr>
+        <% else %>
+          <tr>
+            <td><%= product.description() %></td>
+            <td><%= product.quantity() %></td>
+            <td><%= product.price() %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
