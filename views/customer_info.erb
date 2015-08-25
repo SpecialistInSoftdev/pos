@@ -18,11 +18,40 @@
 <h3><%= @customer.name() %>'s Cart</h3>
 
   <% if @customer.carts.any?() %>
-    <ul>
-      <%  @customer.carts.each() do |cart| %>
-        <li><%= Product.find(cart.product_id).description() %>: $<%= Product.find(cart.product_id).price() %></li>
-      <% end %>
-    </ul>
+
+    <table class="table table-hover">
+
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @customer.carts.each() do |cart| %>
+        <tr>
+          <td><%= Product.find(cart.product_id).description() %></td>
+          <td><%= cart.quantity() %></td>
+          <td><%= Product.find(cart.product_id).price() %></td>
+          <td>
+            <form action="/customers/<%= @customer.id() %>/carts/<%= cart.id() %>/delete" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <input type="hidden" name="cart_id" value="<%= cart.id() %>">
+              <input type="hidden" name="customer_id" value="<%= @customer.id() %>">
+              <button type="submit"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </form>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+
+
+
   <% else %>
     <p>
       <%= @customer.name() %>'s cart is empty.
@@ -33,11 +62,17 @@
 <ul>
   <% @products.each do |product| %>
     <li>
-      <% @customer.carts.each do |cart| %>
-        <% if cart.check_for_product(product.id()) %>
-        #
+      <% if @product_ids.include?(product.id()) %>
+        <% @customer.carts.each do |cart| %>
+          <% if cart.product_id == product.id() %>
+            <form action="/customers/<%= @customer.id() %>/carts/<%= cart.id() %>/edit" method="post">
+              <input type="hidden" name="_method" value="patch">
+              <input type="hidden" name="cart_id" value="<%= cart.id() %>">
+              <input type="hidden" name="customer_id" value="<%= @customer.id() %>">
+              <button type="submit"><%= product.description() %></button>
+            </form>
+          <% end %>
         <% end %>
-      <% end %>
       <% else %>
         <form action="/customers/<%= @customer.id() %>/carts/new" method="post">
           <input type="hidden" name="product_id" value="<%= product.id() %>">

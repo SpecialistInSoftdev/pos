@@ -8,6 +8,7 @@ require('./lib/product')
 require('./lib/order')
 
 
+
 get("/") do
   @customers = Customer.all()
   erb(:index)
@@ -25,6 +26,7 @@ end
 get('/customers/:id') do
   @customer = Customer.find(params.fetch("id").to_i())
   @products = Product.all().available()
+  @product_ids = Cart.product_ids(@customer.id())
   erb(:customer_info)
 end
 
@@ -44,7 +46,7 @@ end
 post('/customers/:id/carts/new') do
   @customer = Customer.find(params.fetch('id').to_i())
   product_id = params.fetch('product_id').to_i()
-  cart = Cart.new({:product_id => product_id, :customer_id => params.fetch('id').to_i()})
+  cart = Cart.new({:product_id => product_id, :customer_id => params.fetch('id').to_i(), :quantity => 1})
   cart.save()
   product = Product.find(product_id)
   new_quantity = product.quantity - 1
@@ -52,6 +54,23 @@ post('/customers/:id/carts/new') do
   redirect('/customers/' + @customer.id().to_s())
 end
 
+patch('/customers/:id/carts/:id/edit') do
+  @customer = Customer.find(params.fetch('customer_id').to_i())
+  cart = Cart.find(params.fetch('cart_id').to_i())
+  new_quantity = cart.quantity + 1
+  cart.update({:quantity => new_quantity})
+  redirect('/customers/' + @customer.id().to_s())
+end
+
+delete('/customers/:id/carts/:id/delete') do
+  @customer = Customer.find(params.fetch("customer_id").to_i())
+  @cart = Cart.find(params.fetch('cart_id').to_i())
+  product = Product.find(@cart.product_id)
+  new_quantity = product.quantity + 1
+  product.update({:quantity => new_quantity})
+  @cart.destroy()
+  redirect('/customers/' + @customer.id().to_s())
+end
 
 #################### PRODUCTS ##########################
 
