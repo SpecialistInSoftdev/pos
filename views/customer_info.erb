@@ -35,7 +35,7 @@
         <tr>
           <td><%= Product.find(cart.product_id).description() %></td>
           <td><%= cart.quantity() %></td>
-          <td><%= Product.find(cart.product_id).price() %></td>
+          <td><%= cart.price() %></td>
           <td>
             <form action="/customers/<%= @customer.id() %>/carts/<%= cart.id() %>/delete" method="post">
               <input type="hidden" name="_method" value="delete">
