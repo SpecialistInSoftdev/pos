@@ -1,0 +1,29 @@
+<h1>Purchase History</h1>
+<% @orders.each do |order| %>
+  <h1><%= Customer.find(order.customer_id).name %></h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% product_array = order.products.split %>
+      <% price_array = order.prices.split %>
+      <% quantity_array = order.quantities.split %>
+      <% length = product_array.length %>
+      <% length.times do %>
+        <tr>
+          <td><%= product_array[0] %></td>
+          <td><%= quantity_array[0] %></td>
+          <td><%= price_array[0] %></td>
+        </tr>
+        <% product_array.shift %>
+        <% price_array.shift %>
+        <% quantity_array.shift %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

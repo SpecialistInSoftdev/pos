@@ -90,9 +90,11 @@
   <% end %>
 </ul>
 
-<form action="index.html" method="post">
-  <input type="hidden" name="name" value="">
-
+<form action="/purchase_history/new" method="post">
+  <% @customer.carts.each do |cart| %>
+    <input type="hidden" name="all_carts" value="<%= carts.id() %>">
+  <input type="hidden" name="customer_id" value="<%= @customer.id() %>">
+  <input type="hidden" name="total_price" value="<%= Cart.total_price(@customer.id) %>">
   <button type="submit" class="btn">Complete Order</button>
 </form>
 
