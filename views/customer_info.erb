@@ -46,6 +46,12 @@
           </td>
         </tr>
         <% end %>
+        <tr>
+          <td>Total</td>
+          <td></td>
+          <td><%= Cart.total_price(@customer.id) %></td>
+          <td></td>
+        </tr>
       </tbody>
 
     </table>
@@ -83,5 +89,11 @@
     </li>
   <% end %>
 </ul>
+
+<form action="index.html" method="post">
+  <input type="hidden" name="name" value="">
+
+  <button type="submit" class="btn">Complete Order</button>
+</form>
 
 <button class="btn"><a href="/">Back</a></button>

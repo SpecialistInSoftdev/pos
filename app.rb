@@ -58,9 +58,12 @@ end
 patch('/customers/:id/carts/:id/edit') do
   @customer = Customer.find(params.fetch('customer_id').to_i())
   cart = Cart.find(params.fetch('cart_id').to_i())
-  new_quantity = cart.quantity + 1
-  new_price = new_quantity * cart.price()
-  cart.update({:quantity => new_quantity, :price => new_price})
+  product = Product.find(cart.product_id)
+  new_inventory_quantity = product.quantity - 1
+  product.update({:quantity => new_inventory_quantity})
+  new_cart_quantity = cart.quantity + 1
+  new_price = new_cart_quantity * Product.find(cart.product_id).price
+  cart.update({:quantity => new_cart_quantity, :price => new_price})
   redirect('/customers/' + @customer.id().to_s())
 end
 
