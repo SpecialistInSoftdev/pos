@@ -15,4 +15,13 @@ class Cart < ActiveRecord::Base
     end
     product_id_array
   end
+
+  define_singleton_method(:total_price) do |customer_id|
+    customer = Customer.find(customer_id)
+    total_price = 0.00
+    customer.carts.each do |cart|
+      total_price += cart.price().to_f
+    end
+    total_price
+  end
 end
