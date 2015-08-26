@@ -1,6 +1,9 @@
 <h1>Purchase History</h1>
+
+<br>
+
 <% @orders.each do |order| %>
-  <h1><%= Customer.find(order.customer_id).name %> - <%= Date.parse(order.created_at().to_s).strftime('%B %e, %Y') %></h1>
+  <h2><%= Customer.find(order.customer_id).name %> - <%= Date.parse(order.created_at().to_s).strftime('%B %e, %Y') %></h2>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -33,4 +36,8 @@
   </table>
 <% end %>
 
-<button class="btn"><a href="/">Back</a></button>
+<a href="/"><button class="btn">Back</button></a>
+<br>
+<br>
+<br>
+<br>

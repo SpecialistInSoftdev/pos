@@ -1,15 +1,15 @@
-<h1>Antique Shop Register</h1>
+<h1>POS Register</h1>
 
-<h2>Process an Order</h2>
+<h2>New Order</h2>
 <h3>Click on returning customer or add new one:</h3>
 
 <ul>
-  <% @customers.each do |customer| %>
-    <li><a href="/customers/<%= customer.id() %>"><%= customer.name() %></a></li>
-  <% end %>
+<% @customers.each do |customer| %>
+  <li><h4><a href="/customers/<%= customer.id() %>"><%= customer.name() %></a></h4></li>
+<% end %>
 </ul>
 
-<h4>Add Customer</h4>
+<h3>Add Customer</h3>
 <form action="/customers/new" method="post">
   <label for="name">Customer Name</label>
   <input type="text" name="name" id="name">
@@ -19,5 +19,5 @@
 
 
 <h2>Manager</h2>
-<button class="btn"><a href="/products">View Inventory</a></button>
-<button class="btn"><a href="/purchase_history">View Purchase History</a></button>
+<a href="/products"><button class="btn">View Inventory</button></a>
+<a href="/purchase_history"><button class="btn">View Purchase History</button></a>

@@ -10,7 +10,7 @@ require('./lib/order')
 
 
 get("/") do
-  @customers = Customer.all()
+  @customers = Customer.all().sort_by(&:name)
   erb(:index)
 end
 
@@ -25,7 +25,7 @@ end
 
 get('/customers/:id') do
   @customer = Customer.find(params.fetch("id").to_i())
-  @products = Product.all().available()
+  @products = Product.all().available().sort_by(&:description)
   @product_ids = Cart.product_ids(@customer.id())
   erb(:customer_info)
 end

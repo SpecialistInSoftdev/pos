@@ -22,6 +22,6 @@ class Cart < ActiveRecord::Base
     customer.carts.each do |cart|
       total_price += cart.price().to_f
     end
-    total_price
+    total_price.round(2)
   end
 end
