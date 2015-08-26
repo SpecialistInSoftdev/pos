@@ -1,5 +1,5 @@
-require 'active_record'
-ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+# require 'active_record'
+# ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 require('sinatra')
 require('sinatra/reloader')
 require('sinatra/activerecord')
