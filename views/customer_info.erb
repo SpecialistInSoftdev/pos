@@ -31,7 +31,7 @@
       <tr>
         <td><%= Product.find(cart.product_id).description() %></td>
         <td><%= cart.quantity() %></td>
-        <td><%= cart.price() %></td>
+        <td>$ <%= cart.price() %></td>
         <td>
           <form action="/customers/<%= @customer.id() %>/carts/<%= cart.id() %>/delete" method="post">
             <input type="hidden" name="_method" value="delete">
@@ -45,7 +45,7 @@
       <tr>
         <th>Total</th>
         <td></td>
-        <td><%= Cart.total_price(@customer.id) %></td>
+        <td>$ <%= Cart.total_price(@customer.id) %></td>
         <td></td>
       </tr>
     </tbody>
