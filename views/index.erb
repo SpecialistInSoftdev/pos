@@ -1,11 +1,11 @@
 <h1>POS Register</h1>
 
 <h2>New Order</h2>
-<h3>Click on returning customer or add new one:</h3>
+<h3>Click on a returning customer or add new one:</h3>
 
 <ul>
 <% @customers.each do |customer| %>
-  <li><h4><a href="/customers/<%= customer.id() %>"><%= customer.name() %></a></h4></li>
+  <li><a href="/customers/<%= customer.id() %>"><button class="btn btn-default btn-lg"><%= customer.name() %></button></a></li>
 <% end %>
 </ul>
 
