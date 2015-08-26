@@ -118,23 +118,19 @@ end
 #################### ORDER HISTORY ##########################
 
 get('/purchase_history') do
-  @order = Order.all()
+  @orders = Order.all()
   erb(:purchase_history)
 end
 
 post('/purchase_history/new') do
-  @carts = params.fetch('all_carts').to_a
   total_price = params.fetch('total_price')
   customer_id = params.fetch('customer_id')
-  prices = ""
-  products = ""
-  quantities = ""
-  @carts.each do |cart|
-    prices += " " + cart.price.to_s
-    products += " " + Product.find(cart.product_id).description
-    quantities += " " + cart.quantity.to_s
-  end
+  prices = params.fetch('prices')
+  products = params.fetch('products')
+  quantities = params.fetch('quantities')
   @new_order = Order.new({:customer_id => customer_id, :total => total_price, :products => products, :quantities => quantities, :prices => prices})
   @new_order.save()
+  @customer = Customer.find(customer_id)
+  @customer.carts.each {|cart| cart.destroy()}
   redirect('/')
 end

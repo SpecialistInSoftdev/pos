@@ -1,7 +1,7 @@
 <h1>Purchase History</h1>
 <% @orders.each do |order| %>
-  <h1><%= Customer.find(order.customer_id).name %></h1>
-  <table>
+  <h1><%= Customer.find(order.customer_id).name %> - <%= Date.parse(order.created_at().to_s).strftime('%B %e, %Y') %></h1>
+  <table class="table table-hover">
     <thead>
       <tr>
         <th>Product Name</th>
@@ -16,7 +16,7 @@
       <% length = product_array.length %>
       <% length.times do %>
         <tr>
-          <td><%= product_array[0] %></td>
+          <td><%= Product.find(product_array[0]).description %></td>
           <td><%= quantity_array[0] %></td>
           <td><%= price_array[0] %></td>
         </tr>
@@ -24,6 +24,13 @@
         <% price_array.shift %>
         <% quantity_array.shift %>
       <% end %>
+      <tr>
+        <td>Total</td>
+        <td></td>
+        <td><%= order.total() %></td>
+      </tr>
     </tbody>
   </table>
 <% end %>
+
+<button class="btn"><a href="/">Back</a></button>

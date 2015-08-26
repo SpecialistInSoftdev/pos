@@ -91,8 +91,17 @@
 </ul>
 
 <form action="/purchase_history/new" method="post">
+  <% products = "" %>
+  <% quantities = "" %>
+  <% prices = "" %>
   <% @customer.carts.each do |cart| %>
-    <input type="hidden" name="all_carts" value="<%= carts.id() %>">
+    <% products += cart.product_id.to_s + " " %>
+    <% quantities += cart.quantity.to_s + " " %>
+    <% prices += cart.price.to_s + " " %>
+  <% end %>
+  <input type="hidden" name="products" value="<%= products %>">
+  <input type="hidden" name="quantities" value="<%= quantities %>">
+  <input type="hidden" name="prices" value="<%= prices %>">
   <input type="hidden" name="customer_id" value="<%= @customer.id() %>">
   <input type="hidden" name="total_price" value="<%= Cart.total_price(@customer.id) %>">
   <button type="submit" class="btn">Complete Order</button>
