@@ -4,6 +4,10 @@ html {
 body {
   text-align: center;
 }
+h1, h2, h3, h4, button, li, form, label, input {
+  font-family: helvetica;
+  font-weight: 200;
+}
 table {
   text-align: left;
 }

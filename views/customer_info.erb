@@ -1,14 +1,13 @@
 <h2>Customer: <%= @customer.name() %></h2>
-
+<br>
 <form action="/customers/<%= @customer.id() %>/edit" method="post">
   <input type="hidden" name="_method" value="patch">
   <input type="text" name="name" id="name" placeholder="Update Name">
-  <button type="submit">Update</button>
+  <button type="submit" class="btn btn-primary btn-sm">Update</button>
 </form>
-
 <form action="/customers/<%= @customer.id() %>/delete" method="post">
   <input type="hidden" name="_method" value="delete">
-  <button type="submit">Delete Customer</button>
+  <button type="submit" class="btn btn-danger btn-sm">Delete Customer</button>
 </form>
 
 <br>
@@ -38,7 +37,7 @@
             <input type="hidden" name="_method" value="delete">
             <input type="hidden" name="cart_id" value="<%= cart.id() %>">
             <input type="hidden" name="customer_id" value="<%= @customer.id() %>">
-            <button type="submit"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
           </form>
         </td>
       </tr>
@@ -67,7 +66,7 @@
     <input type="hidden" name="prices" value="<%= prices %>">
     <input type="hidden" name="customer_id" value="<%= @customer.id() %>">
     <input type="hidden" name="total_price" value="<%= Cart.total_price(@customer.id) %>">
-    <button type="submit" class="btn">Complete Order</button>
+    <button type="submit" class="btn btn-primary">Complete Order</button>
   </form>
 
 <% else %>
@@ -89,14 +88,14 @@
                 <input type="hidden" name="_method" value="patch">
                 <input type="hidden" name="cart_id" value="<%= cart.id() %>">
                 <input type="hidden" name="customer_id" value="<%= @customer.id() %>">
-                <button type="submit" class="btn"><%= product.description() %></button>
+                <button type="submit" class="btn btn-default"><%= product.description() %></button>
               </form>
             <% end %>
           <% end %>
         <% else %>
           <form action="/customers/<%= @customer.id() %>/carts/new" method="post">
             <input type="hidden" name="product_id" value="<%= product.id() %>">
-            <button type="submit" class="btn"><%= product.description() %></button>
+            <button type="submit" class="btn btn-default"><%= product.description() %></button>
           </form>
         <% end %>
 
@@ -107,4 +106,8 @@
 
 <br style="clear:both" />
 
-<a href="/"><button class="btn">Back</button></a>
+<a href="/"><button class="btn btn-primary">Back</button></a>
+<br>
+<br>
+<br>
+<br>
