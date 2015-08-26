@@ -1,5 +1,5 @@
-# require 'active_record'
-# ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+require 'active_record'
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 require('sinatra')
 require('sinatra/reloader')
 require('sinatra/activerecord')
@@ -135,4 +135,9 @@ post('/purchase_history/new') do
   @customer = Customer.find(customer_id)
   @customer.carts.each {|cart| cart.destroy()}
   redirect('/')
+end
+
+delete('/purchase_history/delete') do
+  Order.all.each {|order| order.destroy()}
+  redirect('/purchase_history')
 end

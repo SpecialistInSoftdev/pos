@@ -3,7 +3,7 @@
 <br>
 
 <% @orders.each do |order| %>
-  <h2><%= Customer.find(order.customer_id).name %> - <%= Date.parse(order.created_at().to_s).strftime('%B %e, %Y') %></h2>
+  <h2><%= Customer.find(order.customer_id).name %> - <%= Date.parse(order.updated_at().to_s).strftime('%B %e, %Y') %> <%= Time.parse(order.updated_at().to_s).strftime('%l:%M:%S') %> UTC</h2>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -35,6 +35,11 @@
     </tbody>
   </table>
 <% end %>
+
+<form action="/purchase_history/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Clear History</button>
+</form>
 
 <a href="/"><button class="btn btn-primary">Back</button></a>
 <br>
