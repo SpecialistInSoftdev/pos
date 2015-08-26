@@ -8,6 +8,8 @@
 
 An employee can ring up a customer by selecting the name of a returning customer or adding a new one, putting items in that customer's cart, then hitting 'Complete Order.' The customer's cart empties and the order gets logged in 'purchase history,' viewable by the manager. The manager also has access to view, update and create new inventory (employees can view only available inventory when adding items to a customer's cart).
 
+link to app on heroku: https://pos-register.herokuapp.com/
+
 ## Setup
 
 * _Clone from GitHub_
