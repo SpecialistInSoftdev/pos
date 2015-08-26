@@ -1,6 +1,6 @@
 # _POS_
 
-##### _Allows an employee to ring up a sale, allows a manager to view/edit inventory and see purchase history, 8/25/15_
+##### _Allows an employee to ring up a sale, allows a manager to view and edit inventory and purchase history, 8/25/15_
 
 #### By _**Andrew Dang | Shannon Mulloy**_
 
@@ -45,7 +45,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-require 'active_record'
-
-ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
